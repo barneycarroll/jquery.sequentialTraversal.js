@@ -13,20 +13,20 @@ Because any DOM traversal will be inherently sequential unless the traversal is 
 		<th>Native equivalent</th>
   </tr>
   <tr>
-    <td>`.sequentialNext`</td>
-		<td>[`.next`](http://api.jquery.com/next/)</td>
+    <td><code>.sequentialNext</code></td>
+		<td><code><a href="http://api.jquery.com/next/">.next</a></code></td>
   </tr>
   <tr>
-    <td>`.sequentialNextAll`</td>
-		<td>[`.nextAll`](http://api.jquery.com/nextAll/)</td><td>
+    <td><code>.sequentialNextAll</code></td>
+		<td><code><a href="http://api.jquery.com/nextAll/">.nextAll</a></code></td>
   </tr>
   <tr>
-    <td>`.sequentialPrev`</td>
-		<td>[`.prev`](http://api.jquery.com/prev/)</td>
+    <td><code>.sequentialPrev</code></td>
+		<td><code><a href="http://api.jquery.com/prev/">.prev</a></code></td>
   </tr>
   <tr>
-    <td>`.sequentialPrevAll`</td>
-		<td>[`.prevAll`](http://api.jquery.com/prevAll/)</td><td>
+    <td><code>.sequentialPrevAll</code></td>
+		<td><code><a href="http://api.jquery.com/prevAll/">.prevAll</a></code></td>
   </tr>
 </table>
 
@@ -34,21 +34,21 @@ Because any DOM traversal will be inherently sequential unless the traversal is 
 
 You might prefer the term 'linear' to 'sequential'. They key point is that it isn't concerned with nesting: with sequential traversal, one node is after another if it's opening tag stands later in the document order - the normal hierarchical methods won't consider elements that stand next to or above the relative node's parent.
 
-If you prefer W3's language (some people do), these method is more akin to (NodeIterator)[http://www.w3.org/TR/DOM-Level-2-Traversal-Range/traversal.html#Iterator-overview], while nearly all other methods follow [TreeWalker)(http://www.w3.org/TR/DOM-Level-2-Traversal-Range/traversal.html#TreeWalker). 
+If you prefer W3's language (some people do), these method is more akin to [NodeIterator](http://www.w3.org/TR/DOM-Level-2-Traversal-Range/traversal.html#Iterator-overview), while nearly all other methods follow [TreeWalker](http://www.w3.org/TR/DOM-Level-2-Traversal-Range/traversal.html#TreeWalker). 
 
 ### Example. ###
 
 <pre>
-	<ul>
-		<li>
-			<label for="name">Name</label>
-			<input id="name"></input>
-		</li>
-		<li>
-			<label for="email">Email</label>
-			<input id="email"></input>
-		</li>
-	</ul>
+&lt;ul&gt;
+	&lt;li&gt;
+		&lt;label for="name"&gt;Name&lt;/label&gt;
+		&lt;input id="name"&gt;&lt;/input&gt;
+	&lt;/li&gt;
+	&lt;li&gt;
+		&lt;label for="email">Email&lt;/label&gt;
+		&lt;input id="email">&lt;/input&gt;
+	&lt;/li&gt;
+&lt;/ul&gt;
 </pre>
 
 In the case above, `$('#name').next('input')` won't return anything, because `#name` is its containers last child, but `$('#name').sequentialNext('input')` will return `#email` because it's the next matching element in the sequential order of the document.
