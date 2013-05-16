@@ -31,7 +31,11 @@ $('#span2').sequentialNextAll('span');
 >> ['#span3','#span4']
 */
 
+<<<<<<< HEAD
 void function jQuerySequentialTraversalInit($){
+=======
+;(function $sequentialTraversalInit($){
+>>>>>>> fe7577fa223cde95df11d6b637ba211fcb923509
 	// Define our target methods and abstract their properties
 	var methods = {
 		next:    {backwards:0,multiple:0},
@@ -39,7 +43,10 @@ void function jQuerySequentialTraversalInit($){
 		prev:    {backwards:1,multiple:0},
 		prevAll: {backwards:1,multiple:1}
 	};
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe7577fa223cde95df11d6b637ba211fcb923509
 	// New super function to define new functionality.
 	// props object argument defines properties established above,
 	function sequentialCrawl(props,selector){
