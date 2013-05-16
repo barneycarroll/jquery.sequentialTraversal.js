@@ -41,7 +41,7 @@ void function jQuerySequentialTraversalInit($){
 	};
 	// New super function to define new functionality.
 	// props object argument defines properties established above,
-	function sequentialCrawl(props, selector){
+	function sequentialTraversal(props, selector){
 		// Current element
 		var	$marker = this;
 		var marker  = this[0];
@@ -88,10 +88,10 @@ void function jQuerySequentialTraversalInit($){
 
 	// New bindings
 	$.each(methods, function bindNew(method){
-		$.fn['sequential' + method.charAt(0).toUpperCase() + method.slice(1)] = function sequentialTest(){
-			var args = [].unshift.call(arguments, methods[method]);
+		$.fn['sequential' + method.charAt(0).toUpperCase() + method.slice(1)] = function applySequentialTraversal(){
+			[].unshift.call(arguments, methods[method]);
 
-			return sequentialCrawl.apply(this, arguments);
+			return sequentialTraversal.apply(this, arguments);
 		}
 	});
 }(jQuery);
