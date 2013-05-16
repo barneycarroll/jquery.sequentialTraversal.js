@@ -41,51 +41,50 @@ void function jQuerySequentialTraversalInit($){
 	};
 	// New super function to define new functionality.
 	// props object argument defines properties established above,
-	function sequentialCrawl(props,selector){
-			// Current element
-			var	$marker = $(this);
-			// Grab the whole DOM
-			var $all    = $('*');
-			// Eventual return scope
-			var $match  = $();
-			// Whether we've hit the matched element, useful to avoid pointless iteration
-			var passed  = false;
-			// Reference for iterated elements
-			var $x;
+	function sequentialCrawl(props, selector){
+		// Current element
+		var	$marker = this;
+		var marker  = this[0];
+		// Grab the whole DOM, reversed if we're going backwards
+		var $all    = props.backwards ? [].reverse.apply($('*')) : $('*');
+		var all     = $all.get();
+		// Eventual return scope
+		var $match  = $();
+		// Whether we've hit the matched element, useful to avoid pointless iteration
+		var passed  = false;
 
-			// Reverse the order if we're to crawl backwards
-			if(props.backwards){
-				$all = $($all.get().reverse());
+		// Iterate through flattened DOM
+		$all.each(function sequentialIteration(i, x){
+			var $x = $(x);
+
+			// Do we already have the only match we need?
+			if($match.length && !props.multiple){
+				return false;
 			}
 
-			debugger;
-
-			// Iterate through flattened DOM
-			$all.each(function sequentialIteration(i){
-				$x = $(this);
-
-				// Do we already have the only match we need?
-				if($match.length && !props.multiple){
-					return false;
+			// Where are we in relation to the marker?
+			if(!passed){
+				// ...is this it?
+				if(x === marker){
+					passed = true;
 				}
 
-				// Where are we in relation to the marker?
-				if(!passed){
-					// ...is this it?
-					if($x.is($marker)){
-						passed = true;
-					}
-					return;
-				};
+				return;
+			}
 
-				// Match if we need to
-				if(!selector || $x.is(selector)){
-					$match = $match.add($x);
-				};
-			});
+			// If we're going backwards, we don't want to include parents
+			if(props.backwards && $.contains(x, marker)){
+				return;
+			}
 
-			return $match;
-		};
+			// Match if we need to
+			if(!selector || $x.is(selector)){
+				$match = $match.add($x);
+			};
+		});
+
+		return $match;
+	}
 
 	// New bindings
 	$.each(methods, function bindNew(method){

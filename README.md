@@ -34,7 +34,7 @@ Because any DOM traversal will be inherently sequential unless the traversal is 
 
 You might prefer the term 'linear' to 'sequential'. They key point is that it isn't concerned with nesting: with sequential traversal, one node is after another if it's opening tag stands later in the document order - the normal hierarchical methods won't consider elements that stand next to or above the relative node's parent.
 
-If you prefer W3's language (some people do), these method is more akin to [NodeIterator](http://www.w3.org/TR/DOM-Level-2-Traversal-Range/traversal.html#Iterator-overview), while nearly all other methods follow [TreeWalker](http://www.w3.org/TR/DOM-Level-2-Traversal-Range/traversal.html#TreeWalker). 
+If you prefer W3's language (some people do), these method is more akin to [NodeIterator](http://www.w3.org/TR/DOM-Level-2-Traversal-Range/traversal.html#Iterator-overview), while nearly all other methods follow [TreeWalker](http://www.w3.org/TR/DOM-Level-2-Traversal-Range/traversal.html#TreeWalker).
 
 ### Example. ###
 
@@ -55,5 +55,5 @@ In the case above, `$('#name').next('input')` won't return anything, because `#n
 
 ## Gotchas and TODOs ##
 
-- Reverse order traversal methods (`.prev` and `.prevAll`) necessarily return their own parents. This is counter-intuitive for most applications, but expensive to circumvent.
+- Reverse order traversal methods (`.prev` and `.prevAll`) do not return their own ancestors, to match source `.next` behaviour. Should I include a flag to turn this off in the API?.
 - Need to implement `.sequentialNextUntil` and `.sequentialPrevUntil`.
