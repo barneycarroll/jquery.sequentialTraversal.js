@@ -57,7 +57,7 @@ void function jQuerySequentialTraversalInit($){
 			// Eventual return scope
 			var $match  = $();
 			// Whether we've hit the matched element, useful to avoid pointless iteration
-			var passed;
+			var passed  = false;
 			// Reference for iterated elements
 			var $x;
 
