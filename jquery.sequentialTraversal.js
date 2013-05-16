@@ -1,9 +1,9 @@
 /*
-Sequential methods flatten the DOM to allow linear directional 
-traversal from any given node, such that elements higher up the DOM 
+Sequential methods flatten the DOM to allow linear directional
+traversal from any given node, such that elements higher up the DOM
 tree can be filtered.
 
-The methods provided emulate these 'non-sequential', 
+The methods provided emulate these 'non-sequential',
 ie DOM hierarchy-sensitive, relative traversal methods:
 
 sequentialNext
@@ -29,10 +29,10 @@ Example:
 
 $('#span2').sequentialNextAll('span');
 >> ['#span3','#span4']
-*/ 
+*/
 
 ;(function $sequentialTraversalInit($){
-	var 
+	var
 		// Define our target methods and abstract their properties
 		methods = {
 			next:    {backwards:0,multiple:0},
@@ -41,9 +41,9 @@ $('#span2').sequentialNextAll('span');
 			prevAll: {backwards:1,multiple:1}
 		},
 		// New super function to define new functionality.
-		// props object argument defines properties established above, 
+		// props object argument defines properties established above,
 		sequentialCrawl = function(props,selector){
-			var 
+			var
 				// Current element
 				$marker = $(this),
 				// Grab the whole DOM
@@ -54,19 +54,19 @@ $('#span2').sequentialNextAll('span');
 				passed,
 				// Reference for iterated elements
 				$x;
-			
+
 			// Reverse the order if we're to crawl backwards
-			if (props.backwards) 
+			if (props.backwards)
 				$all = $($all.get().reverse());
-			
+
 			// Iterate through flattened DOM
 			$all.each(function sequentialIteration(i){
 				$x = $(this);
-				
+
 				// Do we already have the only match we need?
-				if($match.length && !props.multiple) 
+				if($match.length && !props.multiple)
 					return false;
-				
+
 				// Where are we in relation to the marker?
 				if(!passed){
 					// ...is this it?
@@ -74,27 +74,24 @@ $('#span2').sequentialNextAll('span');
 						passed = true;
 					return;
 				};
-				
+
 				// Match if we need to
 				if(!selector || $x.is(selector)){
 					$match = $match.add($x);
 				};
 			});
-			
+
 			return $match;
 		};
-		
+
 	// New bindings
 	$.each(methods,function bindNew(method){
-		$.fn['sequential' + method.charAt(0).toUpperCase() + method.slice(1)] = function sequentialTest(selector){
+		$.fn['sequential' + method.charAt(0).toUpperCase() + method.slice(1)] = function sequentialTest(){
 			var $el = $(this);
-			
-			var args = [methods[method]]
-			
-			if(selector)
-				args.push(selector);
-			
-			return sequentialCrawl.apply($el,args);
+
+			arguments = [].unshift.apply('arguments', [methods[method]]);
+
+			return sequentialCrawl.apply($el, arguments);
 		}
 	});
 }(jQuery));
